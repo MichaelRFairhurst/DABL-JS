@@ -55,11 +55,8 @@ angular.module('dabl', [])
 
 			$http({
 				url: route.url(data),
-				method: 'POST',
-				data: data,
-				headers: {
-					'X-HTTP-Method-Override': method
-				}
+				method: method,
+				data: data
 			})
 			.success(function(data, status, headers, config) {
 				if (!self._isValidResponseObject(data, model)) {
@@ -100,11 +97,7 @@ angular.module('dabl', [])
 
 			$http({
 				url: route.url(instance.toJSON()),
-				method: 'POST',
-				data: {},
-				headers: {
-					'X-HTTP-Method-Override': 'DELETE'
-				}
+				method: 'DELETE'
 			})
 			.success(function(data, status, headers, config) {
 				if (data && (data.error || (data.errors && data.errors.length))) {

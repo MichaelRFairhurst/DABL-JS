@@ -158,13 +158,10 @@ var RESTAdapter = dabl.Adapter.extend({
 
 		jQuery.ajax({
 			url: route.url(data),
-			type: 'POST',
+			type: method,
 			data: JSON.stringify(data),
 			contentType: 'application/json;charset=utf-8',
 			dataType: 'json',
-			headers: {
-				'X-HTTP-Method-Override': method
-			},
 			success: function(data, textStatus, jqXHR) {
 				if (!self._isValidResponseObject(data, model)) {
 					error(jqXHR, textStatus, 'Invalid response.');
@@ -226,13 +223,9 @@ var RESTAdapter = dabl.Adapter.extend({
 
 		jQuery.ajax({
 			url: route.url(instance.toJSON()),
-			type: 'POST',
-			data: {},
 			contentType: 'application/json;charset=utf-8',
 			dataType: 'json',
-			headers: {
-				'X-HTTP-Method-Override': 'DELETE'
-			},
+			method: 'DELETE',
 			success: function(data, textStatus, jqXHR) {
 				if (data && (data.error || (data.errors && data.errors.length))) {
 					error(jqXHR, textStatus, 'Invalid response.');
