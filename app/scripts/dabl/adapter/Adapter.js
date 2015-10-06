@@ -16,13 +16,20 @@ var Adapter = dabl.Class.extend({
 		if (!this._cache[table]) {
 			this._cache[table] = {};
 		}
+
+		var isEmptyKey = key === "" || key === 0 || key === null || typeof key === 'undefined' || isNaN(key);
+
 		if (arguments.length < 3) {
-			if (!this._cache[table][key]) {
+			if (isEmptyKey || !this._cache[table][key]) {
 				return null;
 			}
 			return this._cache[table][key];
 		}
-		this._cache[table][key] = value;
+
+		if(!isEmptyKey) {
+			this._cache[table][key] = value;
+		}
+
 		return this;
 	},
 
